@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Shoe Hub - Fashion For Every Step</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .shoe-card:hover { transform: translateY(-5px); transition: transform 0.3s ease; }
+        .modal { display: none; }
+        .modal.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-blue-600">
+                        <i class="bi bi-shoe"></i> The Shoe Hub
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#collection" class="text-gray-700 hover:text-blue-600">Collection</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600" onclick="showModal('about')">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600" onclick="showModal('contact')">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-700 hover:text-blue-600"><i class="bi bi-search text-xl"></i></a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600"><i class="bi bi-cart text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Windows -->
+    <div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <!-- About Modal -->
+        <div id="aboutModal" class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg max-w-2xl w-full">
+            <h2 class="text-2xl font-bold mb-4">About Us</h2>
+            <p class="mb-4">The Shoe Hub is your premier destination for quality footwear. Established in 2010, we've been serving fashion-conscious customers with the latest trends in shoes. Our commitment to quality and customer satisfaction sets us apart.</p>
+            <h3 class="text-xl font-semibold mb-2">Our Mission</h3>
+            <p class="mb-4">To provide exceptional footwear that combines style, comfort, and quality at competitive prices.</p>
+            <button onclick="hideModal()" class="bg-blue-600 text-white px-4 py-2 rounded">Close</button>
+        </div>
+
+        <!-- Contact Modal -->
+        <div id="contactModal" class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg max-w-2xl w-full">
+            <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
+            <form class="space-y-4">
+                <div>
+                    <label class="block mb-2">Name</label>
+                    <input type="text" class="w-full border rounded p-2" required>
+                </div>
+                <div>
+                    <label class="block mb-2">Email</label>
+                    <input type="email" class="w-full border rounded p-2" required>
+                </div>
+                <div>
+                    <label class="block mb-2">Message</label>
+                    <textarea class="w-full border rounded p-2" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Send Message</button>
+            </form>
+            <button onclick="hideModal()" class="mt-4 text-gray-600">Close</button>
+        </div>
+
+        <!-- Shipping Modal -->
+        <div id="shippingModal" class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg max-w-2xl w-full">
+            <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
+            <div class="space-y-4">
+                <p>We offer worldwide shipping with the following options:</p>
+                <ul class="list-disc pl-5">
+                    <li>Standard Shipping (5-7 business days): Free for orders over $100</li>
+                    <li>Express Shipping (2-3 business days): $15</li>
+                    <li>Next Day Delivery (where available): $25</li>
+                </ul>
+                <p>All orders are processed within 24 hours during business days.</p>
+            </div>
+            <button onclick="hideModal()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Close</button>
+        </div>
+
+        <!-- Returns Modal -->
+        <div id="returnsModal" class="modal fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg max-w-2xl w-full">
+            <h2 class="text-2xl font-bold mb-4">Returns Policy</h2>
+            <div class="space-y-4">
+                <p>We want you to be completely satisfied with your purchase. Our return policy includes:</p>
+                <ul class="list-disc pl-5">
+                    <li>30-day return window from delivery date</li>
+                    <li>Items must be unworn and in original packaging</li>
+                    <li>Free returns on all US orders</li>
+                    <li>Full refund or exchange options available</li>
+                </ul>
+            </div>
+            <button onclick="hideModal()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Close</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="bg-blue-600 text-white py-24 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Fashion For Every Step</h1>
+            <p class="text-xl mb-8">Discover our collection of premium footwear</p>
+            <a href="#collection" class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition inline-block">
+                Shop Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div id="collection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Collection</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Shoe Cards (12 items) -->
+            <div class="shoe-card bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Sport" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Nike Air Max</h3>
+                    <p class="text-gray-600 mb-4">Premium running shoe</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-blue-600">$159.99</span>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repeat similar structure for 11 more shoes with different images and details -->
+            <!-- You can use different images from Unsplash and vary the prices and descriptions -->
+
+        </div>
+    </div>
+
+    <!-- Newsletter Section -->
+    <div class="bg-gray-100 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+            <p class="text-gray-600 mb-8">Stay updated with our latest collections and exclusive offers</p>
+            <div class="max-w-md mx-auto flex gap-4">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-600">
+                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Subscribe</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">The Shoe Hub</h3>
+                    <p class="text-gray-400">Fashion for every step</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="showModal('about')" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" onclick="showModal('contact')" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" onclick="showModal('shipping')" class="text-gray-400 hover:text-white">Shipping</a></li>
+                        <li><a href="#" onclick="showModal('returns')" class="text-gray-400 hover:text-white">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                    <p class="text-gray-400">1234 Fashion Street</p>
+                    <p class="text-gray-400">Style City, SC 12345</p>
+                    <p class="text-gray-400">contact@shoehub.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 The Shoe Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functionality
+        function showModal(type) {
+            document.getElementById('modalOverlay').classList.remove('hidden');
+            document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
+            document.getElementById(`${type}Modal`).classList.add('active');
+        }
+
+        function hideModal() {
+            document.getElementById('modalOverlay').classList.add('hidden');
+            document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
+        }
+
+        // Add to cart functionality
+        document.querySelectorAll('.shoe-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Item added to cart!');
+            });
+        });
+
+        // Newsletter subscription
+        const subscribeButton = document.querySelector('.bg-blue-600.px-6');
+        subscribeButton.addEventListener('click', function() {
+            const email = document.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Thank you for subscribing!');
+                document.querySelector('input[type="email"]').value = '';
+            } else {
+                alert('Please enter a valid email address');
+            }
+        });
+
+        // Contact form submission
+        document.querySelector('#contactModal form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message. We will get back to you soon!');
+            this.reset();
+            hideModal();
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
